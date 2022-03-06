@@ -15,7 +15,6 @@ class Libro extends React.Component {
   render() {
     return (
       <div id="libro">
-        <h1>COMPONENTE LIBRO PROPS</h1>
         <Card style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.portada} />
           <Card.Body>
