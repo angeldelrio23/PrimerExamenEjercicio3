@@ -1,8 +1,24 @@
 import React from 'react';
+import { Card, Container, Table, Row, Col } from 'react-bootstrap';
 
 class Ejercicio3 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tableData: [],
+    };
+  }
+
+  async componentDidMount() {
+    fetch(
+      'https://www.etnassoft.com/api/v1/get/?category=programacion&num_items=1&lang=spanish'
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({
+          tableData: data,
+        })
+      );
   }
 
   render() {
@@ -21,6 +37,40 @@ class Ejercicio3 extends React.Component {
             <li>Número máximo de resultados: 5</li>
             <li>Idioma: español</li>
           </ul>
+
+          <Container>
+            <Row>
+              <Col lg={8} md={6}>
+                <Table striped bordered hover variant="dark">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Titulo</th>
+                      <th>Autor</th>
+                      <th>Editorial</th>
+                      <th>Categoria</th>
+                      <th>Idioma</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.tableData.map((item) => {
+                      return (
+                        <tr>
+                          <td>{item.ID} </td>
+                          <td>{item.title} </td>
+                          <td>{item.author} </td>
+                          <td>{item.publisher} </td>
+                          <td>{item.categories.slice(1).name} </td>
+                          <td>{item.language} </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </Col>
+            </Row>
+          </Container>
+
           <li>
             Utiliza los resultados devueltos por la consulta para rellenar un
             componente{' '}
